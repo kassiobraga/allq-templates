@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.2.0 · 23/09/2026
+
+- Pasta `gem/`: versão dos templates para o Gem, com o timbrado por link (allq.com.br) em vez de embutido. O Gem passa a devolver o documento completo em HTML.
+- O Drive recebe os 9 templates em HTML mais o Guia em PDF. Os PDFs de prévia ficam só no repositório.
+- Timbrado novo exportado do Affinity (81 KB, antes 306 KB), sem máscara nem pattern, abre igual no Chrome e no Affinity. Templates de trabalho caíram de ~450 KB para ~110 KB.
+- Guia com a seção "Como entregar o documento em HTML".
+
 ## v1.1.0 · 23/09/2026
 
 - Sincronização automática com o Google Drive via GitHub Action a cada push na `main`.

@@ -6,7 +6,7 @@ Fonte da verdade dos documentos de planejamento da All.Q Agência. Toda alteraç
 
 1. Ajuste pedido ao Administrativo.
 2. Alteração feita em `gerador/` ou no `GUIA-GEMINI.md`, com nova versão no `CHANGELOG.md`.
-3. Push na `main`. A Action **Sincronizar com o Google Drive** regera os templates, valida, exporta os PDFs, grava de volta no repositório e espelha a pasta `pdf/` no Drive.
+3. Push na `main`. A Action **Sincronizar com o Google Drive** regera os templates, valida, exporta os PDFs, grava de volta no repositório e envia ao Drive os 9 templates HTML da pasta `gem/` e o Guia em PDF (10 arquivos, o limite de conhecimento do Gem).
 4. Se a validação falhar, nada vai para o Drive.
 
 O Drive é só leitura. Ninguém edita template fora deste repositório. Os arquivos do Drive mantêm o mesmo ID a cada atualização, então os Gems continuam apontando para eles.
@@ -27,7 +27,9 @@ Para rodar sem push: aba Actions > Sincronizar com o Google Drive > Run workflow
 | Pasta | Conteúdo |
 |---|---|
 | `templates/` | HTML de trabalho. Abrir no Chrome, preencher, Ctrl+P, Salvar como PDF com "Gráficos de segundo plano" marcado |
-| `pdf/` | Prévia em PDF de cada template, a mesma que vai para o Drive |
+| `gem/` | Mesmos templates com o timbrado por link, mais leves, para o Gem copiar e preencher. É o que vai para o Drive |
+| `pdf/` | Prévia em PDF de cada template |
+| `assets/` | Timbrado leve, publicado em allq.com.br/id-visual/design/timbrado-a4-cabecalho.svg |
 | `gerador/` | Código que gera os HTML. Editar aqui, nunca direto no HTML |
 | `GUIA-GEMINI.md` | Guia de uso para os Gems e para o time, publicado no Drive como PDF |
 | `.github/workflows/` | Sincronização automática com o Drive |

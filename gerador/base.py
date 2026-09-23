@@ -1,8 +1,10 @@
 import base64, os
 
 HERE = os.path.dirname(__file__)
-SCR = os.path.join(HERE, 'crp_timb.svg')
-TIMB = 'data:image/svg+xml;base64,' + base64.b64encode(open(SCR, 'rb').read()).decode()
+SCR = os.path.join(HERE, 'timbrado.svg')
+# ALLQ_TIMB_URL: versão para o Gem, com o timbrado por link em vez de embutido
+TIMB = os.environ.get('ALLQ_TIMB_URL') or ('data:image/svg+xml;base64,' + base64.b64encode(open(SCR, 'rb').read()).decode())
+OUTDIR = os.environ.get('ALLQ_OUT', 'templates')
 
 FONTS = 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Albert+Sans:wght@400;500;600&display=swap'
 
@@ -235,7 +237,7 @@ def build(fname, title, cov, inner_pages, label):
         if isinstance(p, tuple):
             sub, p = p
         pages.append(page(label, i + 2, total, p, sub))
-    out = os.path.join(HERE, '..', 'templates', fname)
+    out = os.path.join(HERE, '..', OUTDIR, fname)
     os.makedirs(os.path.dirname(out), exist_ok=True)
     open(out, 'w').write(doc(title, pages))
     return out

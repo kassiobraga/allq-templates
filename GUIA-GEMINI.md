@@ -1,6 +1,16 @@
-# Guia dos Templates de Planejamento · All.Q Agência · v1.1.0
+# Guia dos Templates de Planejamento · All.Q Agência · v1.2.0
 
-Este guia explica cada template de planejamento da All.Q: quando usar, quem preenche e o que vai em cada seção. Os PDFs desta pasta mostram o layout de cada um. Ao ajudar alguém do time, siga a estrutura do template correspondente, na mesma ordem de seções e com os mesmos nomes de campo.
+Este guia explica cada template de planejamento da All.Q: quando usar, quem preenche e o que vai em cada seção. Os arquivos "Template - ... .html" desta pasta são os templates oficiais em código. Ao ajudar alguém do time, a entrega é sempre o documento completo em HTML, feito a partir do template correspondente.
+
+## Como entregar o documento em HTML
+
+1. Abra o arquivo "Template - [tipo].html" correspondente ao pedido.
+2. Copie o `<head>` e o `<style>` exatamente como estão. Não altere CSS, cores, fontes nem o link do timbrado.
+3. No `<body>`, mantenha a mesma sequência de `<section class="pg">` (uma por página A4) e as mesmas classes.
+4. Substitua cada `<span class="ph">[...]</span>` pelo conteúdo real, em texto simples, sem o span e sem os colchetes. Se o dado não existir, mantenha o span com o colchete.
+5. Linhas de tabela, fichas de peça e blocos de departamento podem ser duplicados ou removidos para caber o conteúdo real, sempre copiando a estrutura de uma linha ou ficha existente.
+6. Cada página comporta o conteúdo do template. Se o conteúdo real for maior, crie uma nova `<section class="pg">` copiando a estrutura de uma página interna e ajuste a numeração "Pág. N / Total" em todas as páginas.
+7. Entregue o HTML completo, do `<!DOCTYPE html>` ao `</html>`, em um único bloco, pronto para salvar como `.html`, abrir no Chrome e exportar em PDF (Ctrl+P, Salvar como PDF, com "Gráficos de segundo plano" marcado).
 
 ## Regras que valem para todos
 

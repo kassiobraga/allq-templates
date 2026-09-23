@@ -1,7 +1,7 @@
 name: Sincronizar com o Google Drive
 
 # Fonte da verdade: este repositório. O Drive é só espelho de leitura para os Gems.
-# A cada push na main: regera os templates, valida, exporta os PDFs, grava de volta no repo e espelha a pasta pdf/ no Drive.
+# A cada push na main: regera os templates, valida, exporta os PDFs, grava de volta no repo e envia ao Drive os templates HTML do Gem e o guia.
 
 on:
   push:
@@ -35,7 +35,9 @@ jobs:
           python -m playwright install --with-deps chromium
 
       - name: Gerar templates
-        run: python gerador/gerar.py
+        run: |
+          python gerador/gerar.py
+          ALLQ_TIMB_URL=https://allq.com.br/id-visual/design/timbrado-a4-cabecalho.svg ALLQ_OUT=gem python gerador/gerar.py
 
       - name: Validar (bloqueia a sincronização se falhar)
         run: python gerador/validar.py
@@ -49,16 +51,22 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add templates pdf
+          git add templates gem pdf
           git diff --cached --quiet || git commit -m "Regerar templates e PDFs [${GITHUB_SHA::7}]"
           git push
 
       - name: Instalar rclone
         run: curl -fsSL https://rclone.org/install.sh | sudo bash
 
-      - name: Espelhar pdf/ no Google Drive
+      - name: Montar pasta do Drive (templates HTML do Gem + guia)
+        run: |
+          mkdir -p drive
+          cp gem/*.html drive/
+          cp "pdf/Guia dos Templates de Planejamento.pdf" drive/
+
+      - name: Espelhar drive/ no Google Drive
         env:
           RCLONE_DRIVE_TOKEN: ${{ secrets.DRIVE_TOKEN }}
           RCLONE_DRIVE_ROOT_FOLDER_ID: ${{ secrets.DRIVE_FOLDER_ID }}
           RCLONE_DRIVE_SCOPE: drive
-        run: rclone sync pdf/ ":drive:" --checksum --drive-skip-gdocs -v
+        run: rclone sync drive/ ":drive:" --checksum --drive-skip-gdocs -v
