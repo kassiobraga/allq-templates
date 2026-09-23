@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3.1 · 23/09/2026
+
+- Gem passa a agir como Analista de Marketing Sênior: propõe temas, títulos de post, pilares, datas relevantes e prazos, em vez de devolver o template com lacunas.
+- Colchetes só para dado factual do cliente (números medidos, verba, preços, contatos, links, eventos internos).
+- Regra de feriado nacional no calendário e conferência dos spans restantes antes de entregar.
+
 ## v1.3.0 · 23/09/2026
 
 - Templates do Gem sem CSS embutido: o visual vem de `allq-templates.css`, publicado em allq.com.br/id-visual/design/. O Gem só copia uma linha do `<head>` e escreve o `<body>` com as classes oficiais. Arquivos caíram pela metade.
