@@ -1,4 +1,4 @@
-# Guia dos Templates de Planejamento · All.Q Agência · v1.0.0
+# Guia dos Templates de Planejamento · All.Q Agência · v1.1.0
 
 Este guia explica cada template de planejamento da All.Q: quando usar, quem preenche e o que vai em cada seção. Os PDFs desta pasta mostram o layout de cada um. Ao ajudar alguém do time, siga a estrutura do template correspondente, na mesma ordem de seções e com os mesmos nomes de campo.
 

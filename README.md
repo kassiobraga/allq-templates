@@ -5,11 +5,22 @@ Fonte da verdade dos documentos de planejamento da All.Q Agência. Toda alteraç
 ## Fluxo
 
 1. Ajuste pedido ao Administrativo.
-2. Alteração feita em `gerador/`, templates regerados e validados.
-3. Nova versão registrada no `CHANGELOG.md` (v1.1, v1.2...).
-4. PDFs e `GUIA-GEMINI.md` substituídos na pasta do Drive.
+2. Alteração feita em `gerador/` ou no `GUIA-GEMINI.md`, com nova versão no `CHANGELOG.md`.
+3. Push na `main`. A Action **Sincronizar com o Google Drive** regera os templates, valida, exporta os PDFs, grava de volta no repositório e espelha a pasta `pdf/` no Drive.
+4. Se a validação falhar, nada vai para o Drive.
 
-O Drive é só leitura. Ninguém edita template fora deste repositório.
+O Drive é só leitura. Ninguém edita template fora deste repositório. Os arquivos do Drive mantêm o mesmo ID a cada atualização, então os Gems continuam apontando para eles.
+
+## Configuração da sincronização (uma vez)
+
+Secrets em Settings > Secrets and variables > Actions:
+
+| Secret | Valor |
+|---|---|
+| `DRIVE_FOLDER_ID` | ID da pasta "All.Q · Templates de Planejamento" no Drive |
+| `DRIVE_TOKEN` | JSON gerado por `rclone authorize "drive"` com a conta dona da pasta |
+
+Para rodar sem push: aba Actions > Sincronizar com o Google Drive > Run workflow.
 
 ## Estrutura
 
@@ -18,7 +29,8 @@ O Drive é só leitura. Ninguém edita template fora deste repositório.
 | `templates/` | HTML de trabalho. Abrir no Chrome, preencher, Ctrl+P, Salvar como PDF com "Gráficos de segundo plano" marcado |
 | `pdf/` | Prévia em PDF de cada template, a mesma que vai para o Drive |
 | `gerador/` | Código que gera os HTML. Editar aqui, nunca direto no HTML |
-| `GUIA-GEMINI.md` | Guia de uso para os Gems e para o time |
+| `GUIA-GEMINI.md` | Guia de uso para os Gems e para o time, publicado no Drive como PDF |
+| `.github/workflows/` | Sincronização automática com o Drive |
 
 ## Templates
 
@@ -37,10 +49,11 @@ O Drive é só leitura. Ninguém edita template fora deste repositório.
 ## Gerar e validar
 
 ```bash
-pip install playwright && playwright install chromium
+pip install playwright markdown && playwright install chromium
 python3 gerador/gerar.py         # gera templates/*.html
 python3 gerador/validar.py       # altura A4, preenchimento, travessão, tags
 python3 gerador/exportar_pdf.py  # gera pdf/*.pdf
+python3 gerador/guia_pdf.py      # gera pdf/Guia dos Templates de Planejamento.pdf
 ```
 
 Regra de validação: nenhuma página passa de 1123 px (A4), nenhuma fica abaixo de 55% de preenchimento, zero travessão, zero `border-left` colorido.

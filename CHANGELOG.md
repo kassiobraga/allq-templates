@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.0 · 23/09/2026
+
+- Sincronização automática com o Google Drive via GitHub Action a cada push na `main`.
+- Validação bloqueante: template que estoura o A4, fica abaixo de 55% ou tem travessão não é publicado.
+- Guia dos Templates passa a ser publicado como PDF, gerado do `GUIA-GEMINI.md`.
+
 ## v1.0.0 · 23/09/2026
 
 Primeira versão definitiva, validada com o Administrativo.
