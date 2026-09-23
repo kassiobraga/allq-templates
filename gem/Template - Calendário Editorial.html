@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Template - Calendário Editorial</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Albert+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+@page{size:210mm 297mm;margin:0}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+:root{--bd:#052E7D;--bc:#0070FE;--hn:#F0AD0C;--or:#EE8C0D;--jet:#2F2F2F;--lbl:#C1C4CC;--nv:#0A1730;--off:#EBEBEB;--g:#F5F5F7;--mut:rgba(47,47,47,.62);--brd:rgba(47,47,47,.10)}
+body{background:#D9DCE3;font-family:'Albert Sans',sans-serif;color:var(--jet);font-size:8.4pt;line-height:1.42}
+h1,h2,h3,h4,.kick,.bl,.bv,.num,.sec-n,.kv-val,.kv-lbl,.pill,.tagline,.idx-l,.idx-n,.idx-t,.tbl th,.ihd,.own-n,.own-mk,.st,.chip,.cal th,.cal .dn,.cal .ft,.pc-h,.lg{font-family:'DM Sans',sans-serif}
+.pg{width:210mm;height:297mm;margin:10mm auto;position:relative;overflow:hidden;background:#fff url(https://allq.com.br/id-visual/design/timbrado-a4-cabecalho.svg) center/100% 100% no-repeat}
+@media print{body{background:#fff}.pg{margin:0;break-after:page;page-break-after:always}}
+
+/* capa */
+.band{position:absolute;left:0;right:0;top:40mm;min-height:17mm;background:var(--bd);display:grid;grid-template-columns:repeat(4,1fr);align-items:start;padding:4.4mm 0 4mm}
+.band .c{padding:0 7mm;position:relative;min-width:0}
+.band .c:first-child{padding-left:15mm}
+.band .c+.c::before{content:"";position:absolute;left:0;top:.4mm;width:1px;height:9.4mm;background:rgba(255,255,255,.22)}
+.bl{display:block;font-size:6.6pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--lbl);margin-bottom:1.6mm}
+.bv{display:block;font-size:9.2pt;font-weight:700;color:#fff;line-height:1.24}
+.band .ph{color:#AFC3EE}
+.cv-top{position:absolute;top:74mm;left:15mm;right:15mm;display:flex;justify-content:space-between;align-items:baseline}
+.kick{font-size:7pt;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--bd)}
+.tagline{font-size:7pt;font-weight:600;color:var(--mut);letter-spacing:.04em}
+.cv-main{position:absolute;top:84mm;left:15mm;width:160mm}
+.cv-main h1{font-size:33pt;font-weight:500;line-height:1.06;color:var(--bd);letter-spacing:-.01em}
+.cv-main h1 b{display:block;font-weight:800;color:var(--bc)}
+.rule{width:34mm;height:3px;background:var(--hn);margin-top:4mm}
+.lead{margin-top:8mm;font-size:10.5pt;line-height:1.5;max-width:134mm}
+.by{margin-top:4mm;font-size:8pt;color:rgba(47,47,47,.55)}
+.idx{position:absolute;left:15mm;right:15mm;bottom:40mm}
+.idx-t{font-size:6.6pt;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin-bottom:3mm}
+.idx-g{display:grid;grid-template-columns:repeat(5,1fr);gap:4mm}
+.idx-g div{border-top:1px solid rgba(47,47,47,.25);padding-top:2.6mm}
+.idx-n{display:block;font-size:7pt;font-weight:800;color:var(--bc);margin-bottom:1mm}
+.idx-l{display:block;font-size:8pt;font-weight:600;line-height:1.25}
+
+/* paginas internas */
+.idb{position:absolute;left:0;right:0;top:37mm;height:8mm;background:var(--bd);display:flex;align-items:center;justify-content:space-between;padding:0 15mm;font-family:'DM Sans',sans-serif}
+.idb .l{font-size:7.6pt;font-weight:700;color:#fff;letter-spacing:.03em}
+.idb .l .ph{color:#AFC3EE}
+.idb .r{font-size:6.6pt;font-weight:700;color:var(--lbl);letter-spacing:.14em;text-transform:uppercase}
+.idb .r b{color:#fff;margin-left:2.4mm;letter-spacing:.06em}
+.body{position:absolute;top:50mm;left:15mm;right:15mm;height:212mm;overflow:hidden}
+.sec{margin-bottom:5.5mm}
+.sec:last-child{margin-bottom:0}
+.sec-h{display:flex;align-items:center;gap:3mm;margin-bottom:3mm}
+.sec-n{flex:none;width:7mm;height:7mm;background:var(--nv);color:#fff;font-size:7.6pt;font-weight:700;display:flex;align-items:center;justify-content:center}
+.sec-h h2{font-size:12.5pt;font-weight:700;color:var(--bd);line-height:1.15}
+.sec-s{font-size:7.8pt;color:var(--mut);margin-top:.4mm}
+h3{font-size:9pt;font-weight:700;color:var(--bd);margin:0 0 2mm}
+
+.tbl{width:100%;border-collapse:collapse;font-size:7.9pt;line-height:1.35}
+.tbl th{background:var(--bd);color:#fff;font-size:6.4pt;letter-spacing:.08em;text-transform:uppercase;font-weight:700;text-align:left;padding:1.8mm 2.2mm;vertical-align:bottom}
+.tbl td{padding:1.7mm 2.2mm;border-bottom:1px solid var(--brd);vertical-align:top}
+.tbl tr:nth-child(even) td{background:var(--g)}
+.tbl td.k{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--bd);white-space:nowrap}
+.tbl td.c,.tbl th.c{text-align:center}
+.tbl td.bar{padding:1.7mm .8mm}
+.tbl td.bar i{display:block;height:3.2mm;border-radius:2px;background:var(--bc)}
+.tbl td.bar i.y{background:var(--hn)}
+.tbl tr.tot td{background:rgba(5,46,125,.07)!important;font-family:'DM Sans',sans-serif;font-weight:700;color:var(--bd)}
+
+.kv{display:grid;grid-template-columns:repeat(5,1fr);gap:2.5mm}
+.kv.k4{grid-template-columns:repeat(4,1fr)}
+.kv.k3{grid-template-columns:repeat(3,1fr)}
+.kvb{background:var(--g);border-radius:6px;padding:3mm 3mm 2.6mm}
+.kv-val{font-size:15pt;font-weight:800;color:var(--bd);line-height:1.1}
+.kv-lbl{display:block;font-size:6.4pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-top:1.2mm}
+.kv-src{display:block;font-size:6.6pt;color:var(--mut);margin-top:.6mm}
+
+.two{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.chips{display:flex;flex-wrap:wrap;gap:1.6mm}
+.chip{background:rgba(0,112,254,.08);color:var(--bd);border-radius:20px;padding:1mm 3mm;font-size:7.4pt;font-weight:600}
+.chip.neg{background:rgba(238,140,13,.13);color:#8A4F05}
+.note{display:flex;gap:2.5mm;align-items:flex-start;border:1px solid rgba(47,47,47,.16);border-radius:6px;padding:2.6mm 3mm;font-size:7.8pt}
+.note svg{flex:none;width:4mm;height:4mm;color:var(--bc);margin-top:.2mm}
+.note b{font-family:'DM Sans',sans-serif;color:var(--bd)}
+.ph{color:#8C93A3;font-style:italic}
+.cb{display:inline-block;width:3mm;height:3mm;border:1px solid rgba(47,47,47,.45);border-radius:1px;margin-right:2mm;vertical-align:-.5mm;flex:none}
+ul.chk{list-style:none;display:grid;gap:1.6mm}
+ul.chk li{display:flex;align-items:flex-start;font-size:7.9pt}
+ul.chk li .cb{margin-top:.3mm}
+ul.bl{padding-left:4mm;display:grid;gap:1mm;font-size:7.9pt}
+.st{display:inline-block;font-size:6.4pt;font-weight:700;padding:.5mm 2mm;border-radius:10px;background:var(--off);color:var(--jet);white-space:nowrap}
+
+.own{display:flex;align-items:center;gap:3mm;background:var(--g);border-radius:6px;padding:2.4mm 3mm;margin-bottom:2.5mm}
+.own-mk{flex:none;width:8mm;height:8mm;background:var(--nv);color:#fff;font-size:7.6pt;font-weight:700;display:flex;align-items:center;justify-content:center}
+.own-n{font-size:10pt;font-weight:700;color:var(--bd);line-height:1.1}
+.own-r{font-size:7.4pt;color:var(--mut)}
+
+.cal{width:100%;border-collapse:separate;border-spacing:1.2mm;table-layout:fixed}
+.cal th{font-size:6.4pt;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);text-align:left;padding:0 1mm}
+.cal td{height:15mm;background:var(--g);border-radius:4px;vertical-align:top;padding:1.4mm 1.6mm}
+.cal td.x{background:transparent}
+.cal .dn{display:block;font-size:8pt;font-weight:700;color:var(--mut)}
+.cal .ft{display:inline-block;margin-top:1.4mm;font-size:6.2pt;font-weight:700;padding:.4mm 1.6mm;border-radius:3px}
+.f-car{background:rgba(0,112,254,.14);color:var(--bd)}
+.f-vid{background:rgba(240,173,12,.26);color:#6B4A00}
+.f-sta{background:rgba(238,140,13,.18);color:#7A4300}
+.f-txt{background:rgba(5,46,125,.14);color:var(--bd)}
+.cal td.on .dn{color:var(--bd)}
+.lg{display:flex;gap:4mm;font-size:7pt;font-weight:600;margin-top:2mm}
+.lg span{display:flex;align-items:center;gap:1.4mm}
+.lg i{width:3mm;height:3mm;border-radius:1px;display:inline-block}
+
+.pc{background:var(--g);border-radius:6px;padding:3mm;margin-bottom:3.5mm}
+.pc-h{display:flex;gap:3mm;align-items:center;margin-bottom:2.2mm}
+.pc-h .own-mk{width:9mm;height:9mm}
+.pc-h b{font-size:10pt;color:var(--bd);display:block;line-height:1.1}
+.pc-h small{font-size:7pt;color:var(--mut);font-family:'Albert Sans',sans-serif}
+.pc .tbl td{background:#fff!important}
+.pc .tbl td.k{width:26mm}
+.sw{display:flex;gap:2.5mm}
+.sw div{flex:1;border-radius:6px;overflow:hidden;background:var(--g);font-size:7pt}
+.sw i{display:block;height:13mm;background:repeating-linear-gradient(45deg,#E4E6EB 0 4px,#F0F1F4 4px 8px)}
+.sw span{display:block;padding:1.6mm 2mm}
+.flow{display:grid;grid-template-columns:repeat(5,1fr);gap:2mm}
+.flow div{background:var(--g);border-radius:6px;padding:2.6mm}
+.flow .num{display:block;font-size:7pt;font-weight:800;color:var(--bc);margin-bottom:.8mm}
+.flow b{display:block;font-family:'DM Sans',sans-serif;font-size:8.4pt;color:var(--bd)}
+.flow small{display:block;font-size:7pt;color:var(--mut);margin-top:.6mm}
+
+/* ficha de peca (padrao aprovado no calendario CRP Tecnologia) */
+.post{display:grid;grid-template-columns:19mm 1fr;border:1px solid rgba(47,47,47,.16);border-radius:8px;overflow:hidden;margin-bottom:3mm;background:#fff;break-inside:avoid}
+.pl{background:var(--g);border-right:1px solid var(--brd);padding:2.6mm 1.4mm;text-align:center;display:flex;flex-direction:column;align-items:center}
+.pl .pc{font-family:'DM Sans',sans-serif;font-size:5.8pt;font-weight:700;letter-spacing:.14em;color:var(--mut)}
+.pl .pd{font-family:'DM Sans',sans-serif;font-size:7pt;font-weight:700;color:var(--mut);margin-top:2.2mm;letter-spacing:.1em}
+.pl .pdt{font-family:'DM Sans',sans-serif;font-size:20pt;font-weight:800;color:var(--bd);line-height:1}
+.pl .pm{font-family:'DM Sans',sans-serif;font-size:6.4pt;font-weight:600;color:var(--mut);margin-top:1.2mm}
+.pl .due{margin-top:3mm;padding-top:2mm;border-top:1px solid var(--brd);width:100%;font-family:'DM Sans',sans-serif;font-size:5.6pt;font-weight:700;letter-spacing:.08em;color:var(--mut);text-transform:uppercase;line-height:1.3}
+.pl .due b{display:block;color:var(--jet);font-size:7.6pt;letter-spacing:0;margin-top:.4mm}
+.fmt{margin-top:3.4mm;font-family:'DM Sans',sans-serif;font-size:5.9pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border-radius:4px;padding:1.1mm 1.6mm}
+.pb{padding:2.6mm 3.6mm}
+.pmeta{display:flex;align-items:center;gap:1.6mm;flex-wrap:wrap;margin-bottom:1.8mm}
+.pmeta .sp{flex:1}
+.tpl{font-family:'DM Sans',sans-serif;font-size:6.4pt;font-weight:600;color:var(--mut)}
+.tpl b{color:var(--jet)}
+.pill{display:inline-block;font-size:6.4pt;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:.8mm 2.2mm;border-radius:20px;white-space:nowrap;background:rgba(5,46,125,.07);color:var(--bd);border:1px solid rgba(5,46,125,.22)}
+.pill .ph{color:var(--bd);opacity:.7}
+.np{display:inline-block;font-family:'DM Sans',sans-serif;font-size:6.2pt;font-weight:700;color:#fff;padding:.7mm 2mm;border-radius:20px;letter-spacing:.04em}
+.np-ig{background:#E1306C}.np-li{background:#0A66C2}.np-fb{background:#1877F2}.np-tt{background:#111}.np-yt{background:#FF0000}.np-gmn{background:#34A853}.np-gads{background:#4285F4}.np-meta{background:#0668E1}
+.fl{display:block;font-family:'DM Sans',sans-serif;font-size:6pt;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--mut);margin-bottom:.6mm}
+.f-t{font-family:'DM Sans',sans-serif;font-size:11pt;font-weight:700;color:var(--bd);line-height:1.25}
+.f-s{font-size:8.6pt;line-height:1.4}
+.tsg{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:1.8mm}
+.tsg.t3{grid-template-columns:1fr 1fr 1fr;gap:3mm}
+.sls{display:grid;grid-template-columns:repeat(3,1fr);gap:1.6mm;margin-bottom:1.6mm}
+.sl{border:1px solid var(--brd);border-radius:6px;padding:1.4mm 2mm}
+.sl-n{font-family:'DM Sans',sans-serif;font-size:5.9pt;font-weight:800;letter-spacing:.12em;color:var(--mut)}
+.sl-n.hl{color:#B07800}
+.sl-t{font-family:'DM Sans',sans-serif;font-size:8.4pt;font-weight:700;color:var(--bd);line-height:1.25;margin-top:.6mm}
+.sl-s{font-size:7.4pt;line-height:1.32;margin-top:.4mm}
+.nota{border-top:1px solid var(--brd);margin-top:1.8mm;padding-top:1.4mm;font-size:7.2pt;color:var(--mut);line-height:1.5}
+.nota b{font-family:'DM Sans',sans-serif;font-weight:700;color:var(--jet)}
+
+/* cores de formato: iguais no calendario, na grade e na ficha */
+.f-sta{background:rgba(0,112,254,.14);color:var(--bd)}
+.f-car{background:rgba(240,173,12,.30);color:#6B4A00}
+.f-vid{background:rgba(238,140,13,.20);color:#7A4300}
+.f-ads{background:rgba(5,46,125,.12);color:var(--bd)}
+.tbl tr.r-sta td{background:rgba(0,112,254,.08)!important}
+.tbl tr.r-car td{background:rgba(240,173,12,.15)!important}
+.tbl tr.r-vid td{background:rgba(238,140,13,.11)!important}
+.tbl tr.r-sta td,.tbl tr.r-car td,.tbl tr.r-vid td{border-bottom:1.5px solid #fff}
+.tbl .fmt{margin:0;display:inline-block}
+
+/* mini calendario (trimestral) */
+.mcals{display:grid;grid-template-columns:repeat(3,1fr);gap:3mm}
+.mcal{background:var(--g);border-radius:6px;padding:2.6mm 2.2mm 2mm}
+.mcal-t{font-family:'DM Sans',sans-serif;font-weight:700;font-size:9pt;color:var(--bd);margin-bottom:1.2mm;display:flex;justify-content:space-between;align-items:baseline;padding:0 .8mm}
+.mcal-t small{font-size:6.4pt;color:var(--mut);font-weight:600}
+.mc{width:100%;border-collapse:separate;border-spacing:.9mm;table-layout:fixed}
+.mc th{font-family:'DM Sans',sans-serif;font-size:5.6pt;font-weight:700;color:var(--mut);text-align:center}
+.mc td{height:6.2mm;text-align:center;font-family:'DM Sans',sans-serif;font-size:7pt;font-weight:600;border-radius:3px;color:#9AA0AC;background:#fff}
+.mc td.x{background:none}
+.mc td.f-sta,.mc td.f-car,.mc td.f-vid{font-weight:800}
+
+/* wireframe da LP */
+.wfw{display:grid;grid-template-columns:1fr 44mm;gap:6mm;align-items:start}
+.wf-cap{font-family:'DM Sans',sans-serif;font-size:6.4pt;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:1.6mm}
+.wf{border:1px solid rgba(47,47,47,.25);border-radius:6px;background:#fff;overflow:hidden}
+.wb{position:relative;padding:1.8mm 3mm 1.8mm 8.4mm;border-bottom:1px dashed rgba(47,47,47,.2)}
+.wb:last-child{border-bottom:none}
+.wb.dk{background:#E7E9EE}
+.wn{position:absolute;left:1.8mm;top:1.8mm;width:4.4mm;height:4.4mm;background:var(--nv);color:#fff;font-family:'DM Sans',sans-serif;font-size:5.6pt;font-weight:700;display:flex;align-items:center;justify-content:center}
+.wl{display:block;height:1.5mm;border-radius:1px;background:#D3D6DD;margin-top:1mm}
+.wl.t{height:2.8mm;background:#9EA4B0;margin-top:0}
+.wl.s{background:#BFC3CB}
+.wbtn{display:inline-block;height:4mm;width:22mm;border-radius:3px;background:var(--bc);margin-top:1.6mm}
+.wbox{background:#EEF0F3;border:1px solid #DADDE3;border-radius:3px}
+.wimg{background:repeating-linear-gradient(45deg,#E1E3E8 0 3px,#F0F1F4 3px 6px);border-radius:3px}
+.wg{display:grid;gap:1.8mm}
+.wt{font-family:'DM Sans',sans-serif;font-size:5.4pt;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);margin-bottom:.8mm}
+.wf.m .wb{padding:1.8mm 2.2mm 1.8mm 7.4mm}
+.wf.m .wn{left:1.4mm;top:1.8mm;width:4mm;height:4mm}
+.wf.m .wbtn{width:100%}
+.mc td.f-sta{background:rgba(0,112,254,.22);color:var(--bd)}
+.mc td.f-car{background:rgba(240,173,12,.40);color:#6B4A00}
+.mc td.f-vid{background:rgba(238,140,13,.34);color:#7A4300}
+.f-vid{background:rgba(238,140,13,.30);color:#7A4300}
+.f-car{background:rgba(240,173,12,.26);color:#6B4A00}
+.tbl tr.r-car td{background:rgba(240,173,12,.12)!important}
+.tbl tr.r-vid td{background:rgba(238,140,13,.20)!important}
+/* departamentos */
+.dp{display:inline-flex;align-items:center;gap:1.2mm;font-family:'DM Sans',sans-serif;font-weight:700;font-size:7.4pt;color:var(--dc);white-space:nowrap;line-height:1.2}
+.dp i{display:inline-flex;width:4mm;height:4mm;border-radius:1px;background:var(--dc);color:#fff;align-items:center;justify-content:center;flex:none}
+.dp svg{width:2.8mm;height:2.8mm}
+.own-mk svg{width:4.6mm;height:4.6mm;color:#fff}
+.flow small .dp{font-size:6.8pt;margin-top:.6mm}
+/* legenda da ficha */
+.lgd{background:#F7F8FB;border-radius:6px;padding:1.8mm 2.6mm;font-size:8pt;line-height:1.42}
+.lgd p+p{margin-top:.8mm}
+.lgd .ht{color:var(--bc);font-weight:600}
+/* formatos */
+.f-sta{background:rgba(0,112,254,.16);color:var(--bd)}
+.f-car{background:rgba(240,173,12,.30);color:#6B4A00}
+.f-vid{background:rgba(238,140,13,.28);color:#7A4300}
+.f-lng{background:rgba(5,46,125,.16);color:var(--bd)}
+.f-sto{background:rgba(225,48,108,.16);color:#A0144A}
+.f-txt{background:rgba(107,107,123,.16);color:#3E3E4A}
+.tbl tr.r-sta td{background:rgba(0,112,254,.07)!important}
+.tbl tr.r-car td{background:rgba(240,173,12,.12)!important}
+.tbl tr.r-vid td{background:rgba(238,140,13,.14)!important}
+.tbl tr.r-lng td{background:rgba(5,46,125,.08)!important}
+.tbl tr.r-sto td{background:rgba(225,48,108,.08)!important}
+.tbl tr.r-txt td{background:rgba(107,107,123,.08)!important}
+.tbl tr[class^="r-"] td{border-bottom:1.5px solid #fff}
+.tbl.g td{padding:1.05mm 2mm;font-size:7.6pt}
+.tbl.g .fmt{font-size:5.6pt;padding:.7mm 1.4mm}
+.mc td.f-sta{background:rgba(0,112,254,.24)}.mc td.f-car{background:rgba(240,173,12,.42)}.mc td.f-vid{background:rgba(238,140,13,.38)}
+.mc td.f-lng{background:rgba(5,46,125,.24)}.mc td.f-sto{background:rgba(225,48,108,.22)}.mc td.f-txt{background:rgba(107,107,123,.22)}
+.mc td{position:relative}
+.mc td .dt{position:absolute;bottom:.5mm;width:1.3mm;height:1.3mm;border-radius:50%}
+.dt.f-sto{background:#E1306C}.dt.f-txt{background:#6B6B7B}.dt.f-lng{background:#052E7D}.dt.f-car{background:#F0AD0C}.dt.f-sta{background:#0070FE}.dt.f-vid{background:#EE8C0D}
+.cal .ft{display:block;width:max-content;margin-top:.9mm}
+.fmtrow td:first-child{white-space:nowrap}
+/* cores de formato v3 */
+.f-sta{background:rgba(0,112,254,.16);color:#052E7D}
+.f-car{background:rgba(124,58,237,.16);color:#5B21B6}
+.f-vid{background:rgba(238,140,13,.24);color:#7A4300}
+.f-lng{background:rgba(220,38,38,.15);color:#991B1B}
+.f-sto{background:rgba(236,72,153,.18);color:#9D174D}
+.f-txt{background:rgba(26,127,85,.16);color:#14603F}
+.tbl tr.r-sta td{background:rgba(0,112,254,.07)!important}
+.tbl tr.r-car td{background:rgba(124,58,237,.07)!important}
+.tbl tr.r-vid td{background:rgba(238,140,13,.11)!important}
+.tbl tr.r-lng td{background:rgba(220,38,38,.07)!important}
+.tbl tr.r-sto td{background:rgba(236,72,153,.08)!important}
+.tbl tr.r-txt td{background:rgba(26,127,85,.08)!important}
+.mc td.f-sta{background:rgba(0,112,254,.24)}.mc td.f-car{background:rgba(124,58,237,.24)}.mc td.f-vid{background:rgba(238,140,13,.34)}
+.mc td.f-lng{background:rgba(220,38,38,.22)}.mc td.f-sto{background:rgba(236,72,153,.26)}.mc td.f-txt{background:rgba(26,127,85,.24)}
+.sl-n.hl{color:#5B21B6}
+.mc td.spl{font-weight:800;color:#2F2F2F}
+</style></head>
+<body>
+<section class="pg cover">
+<div class="band">
+<div class="c"><span class="bl">Cliente</span><span class="bv"><span class="ph">[Nome completo do cliente]</span></span></div>
+<div class="c"><span class="bl">Documento</span><span class="bv">Calendário Editorial</span></div>
+<div class="c"><span class="bl">Período</span><span class="bv"><span class="ph">[Mês]</span> de <span class="ph">[Ano]</span></span></div>
+<div class="c"><span class="bl">Cadência</span><span class="bv"><span class="ph">[25 peças no mês]</span></span></div>
+</div>
+<div class="cv-top"><span class="kick"><span class="ph">[Cliente]</span> · <span class="ph">[Grupo]</span></span><span class="tagline">Menos Vaidade, Mais Resultados</span></div>
+<div class="cv-main"><h1>Calendário<b>Editorial</b></h1><div class="rule"></div>
+<p class="lead"><span class="ph">[Uma frase com o tema do mês e o que o conteúdo precisa gerar: autoridade, lead ou relacionamento.]</span></p>
+<p class="by">Por Kassio Braga · All.Q Agência · <span class="ph">[dd/mm/aaaa]</span></p></div>
+<div class="idx"><div class="idx-t">Neste documento</div><div class="idx-g"><div><span class="idx-n">01</span><span class="idx-l">Visão do mês</span></div><div><span class="idx-n">02</span><span class="idx-l">Formatos e pilares</span></div><div><span class="idx-n">03</span><span class="idx-l">Grade de posts</span></div><div><span class="idx-n">04</span><span class="idx-l">Fluxo de aprovação</span></div><div><span class="idx-n">05</span><span class="idx-l">Datas relevantes</span></div></div></div>
+</section><section class="pg">
+<div class="idb"><span class="l">Calendário Editorial · <span class="ph">[Cliente]</span></span><span class="r"><b>Pág. 02 / 04</b></span></div>
+<div class="body"><div class="fill"><div class="sec"><div class="sec-h"><div class="sec-n">01</div><div><h2>Visão do mês</h2><div class="sec-s">Grade base: mês iniciando na segunda. Ajustar os dias ao mês real.</div></div></div><table class="cal"><thead><tr><th>Seg</th><th>Ter</th><th>Qua</th><th>Qui</th><th>Sex</th><th>Sáb</th><th>Dom</th></tr></thead><tbody><tr><td class="on"><span class="dn">01</span><span class="ft f-car">Carrossel</span></td><td class="on"><span class="dn">02</span><span class="ft f-sto">Stories</span></td><td class="on"><span class="dn">03</span><span class="ft f-vid">Reels</span></td><td class=""><span class="dn">04</span></td><td class="on"><span class="dn">05</span><span class="ft f-car">Carrossel</span><span class="ft f-txt">Texto</span></td><td class="on"><span class="dn">06</span><span class="ft f-sta">Estático</span></td><td class=""><span class="dn">07</span></td></tr><tr><td class="on"><span class="dn">08</span><span class="ft f-car">Carrossel</span></td><td class="on"><span class="dn">09</span><span class="ft f-vid">Reels</span></td><td class="on"><span class="dn">10</span><span class="ft f-lng">Vídeo</span></td><td class="on"><span class="dn">11</span><span class="ft f-car">Carrossel</span><span class="ft f-sto">Stories</span></td><td class="on"><span class="dn">12</span><span class="ft f-sta">Estático</span><span class="ft f-txt">Texto</span></td><td class=""><span class="dn">13</span></td><td class=""><span class="dn">14</span></td></tr><tr><td class=""><span class="dn">15</span></td><td class="on"><span class="dn">16</span><span class="ft f-car">Carrossel</span><span class="ft f-sto">Stories</span></td><td class=""><span class="dn">17</span></td><td class="on"><span class="dn">18</span><span class="ft f-vid">Reels</span></td><td class="on"><span class="dn">19</span><span class="ft f-txt">Texto</span></td><td class="on"><span class="dn">20</span><span class="ft f-car">Carrossel</span></td><td class="on"><span class="dn">21</span><span class="ft f-sta">Estático</span></td></tr><tr><td class="on"><span class="dn">22</span><span class="ft f-car">Carrossel</span></td><td class="on"><span class="dn">23</span><span class="ft f-sto">Stories</span></td><td class="on"><span class="dn">24</span><span class="ft f-vid">Reels</span></td><td class=""><span class="dn">25</span></td><td class="on"><span class="dn">26</span><span class="ft f-car">Carrossel</span><span class="ft f-txt">Texto</span></td><td class="on"><span class="dn">27</span><span class="ft f-sta">Estático</span></td><td class=""><span class="dn">28</span></td></tr><tr><td class=""><span class="dn">29</span></td><td class=""><span class="dn">30</span></td><td class=""><span class="dn">31</span></td><td class="x"></td><td class="x"></td><td class="x"></td><td class="x"></td></tr></tbody></table><div class="lg" style="flex-wrap:wrap"><span><i class="f-sta"></i>Estático</span><span><i class="f-car"></i>Carrossel</span><span><i class="f-vid"></i>Reels</span><span><i class="f-lng"></i>Vídeo</span><span><i class="f-sto"></i>Stories</span><span><i class="f-txt"></i>Texto</span><span><i style="background:var(--g);border:1px solid var(--brd)"></i>Sem publicação</span></div></div><div class="sec"><div class="sec-h"><div class="sec-n">02</div><div><h2>Formatos do mês</h2></div></div><table class="tbl"><colgroup><col style="width:22mm"><col><col style="width:24mm"><col style="width:22mm"><col style="width:16mm"></colgroup><thead><tr><th>Formato</th><th>O que é</th><th>Redes</th><th>Dimensão</th><th class="c">Qtd.</th></tr></thead><tbody><tr class="r-sta"><td><span class="fmt f-sta">Estático</span></td><td>Imagem única com título e sub</td><td>IG · FB · GMN</td><td>1080 × 1350</td><td class="c"><span class="ph">[4]</span></td></tr><tr class="r-car"><td><span class="fmt f-car">Carrossel</span></td><td>Sequência de 6 lâminas: capa, 4 de conteúdo e último com CTA</td><td>IG · LI · FB</td><td>1080 × 1350</td><td class="c"><span class="ph">[8]</span></td></tr><tr class="r-vid"><td><span class="fmt f-vid">Reels</span></td><td>Vídeo vertical curto, 30 a 45 s, legenda na tela</td><td>IG · TT · YT</td><td>1080 × 1920</td><td class="c"><span class="ph">[4]</span></td></tr><tr class="r-lng"><td><span class="fmt f-lng">Vídeo</span></td><td>Vídeo horizontal longo, 3 a 10 min, com capa</td><td>YT · LI</td><td>1920 × 1080</td><td class="c"><span class="ph">[1]</span></td></tr><tr class="r-sto"><td><span class="fmt f-sto">Stories</span></td><td>Sequência de 3 a 5 telas, enquete, caixa de pergunta, link</td><td>IG · FB</td><td>1080 × 1920</td><td class="c"><span class="ph">[4]</span></td></tr><tr class="r-txt"><td><span class="fmt f-txt">Texto</span></td><td>Post só texto no LinkedIn, imagem opcional</td><td>LI</td><td>Sem arte</td><td class="c"><span class="ph">[4]</span></td></tr><tr class="tot"><td>Total</td><td></td><td></td><td></td><td class="c"><span class="ph">[25]</span></td></tr></tbody></table></div></div></div>
+</section><section class="pg">
+<div class="idb"><span class="l">Calendário Editorial · <span class="ph">[Cliente]</span></span><span class="r"><b>Pág. 03 / 04</b></span></div>
+<div class="body"><div class="fill"><div class="sec"><div class="sec-h"><div class="sec-n">03</div><div><h2>Pilares</h2></div></div><table class="tbl"><colgroup><col style="width:30mm"><col><col style="width:34mm"></colgroup><thead><tr><th>Pilar</th><th>Objetivo</th><th>Formato preferencial</th></tr></thead><tbody><tr><td class="k">Quebra de crença</td><td><span class="ph">[Contrariar um senso comum do setor]</span></td><td>Carrossel</td></tr><tr><td class="k">Educação</td><td><span class="ph">[Ensinar algo que o cliente final usa]</span></td><td>Carrossel, Vídeo</td></tr><tr><td class="k">Bastidor</td><td><span class="ph">[Mostrar como a empresa trabalha]</span></td><td>Reels</td></tr><tr><td class="k">Diagnóstico</td><td><span class="ph">[Pergunta que gera identificação]</span></td><td>Estático</td></tr><tr><td class="k">Relacionamento</td><td><span class="ph">[Conversa diária, enquete, caixa de pergunta]</span></td><td>Stories</td></tr><tr><td class="k">Autoridade</td><td><span class="ph">[Opinião do porta-voz sobre o mercado]</span></td><td>Texto</td></tr></tbody></table></div><div class="sec"><div class="sec-h"><div class="sec-n">04</div><div><h2>Fluxo de aprovação</h2></div></div><div class="flow"><div><span class="num">01</span><b>Copy</b><small><span class="dp" style="--dc:#448361"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 6h11M3 12h7M3 18h4"/><path d="m14 19 7-7-2.5-2.5-7 7V19Z"/></svg></i>Tráfego Orgânico</span><br>até dia <span class="ph">[10]</span></small></div><div><span class="num">02</span><b>Arte</b><small><span class="dp" style="--dc:#C14C8A"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10v12"/><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"/></svg></i>Criativos</span><br>até dia <span class="ph">[15]</span></small></div><div><span class="num">03</span><b>Revisão</b><small><span class="dp" style="--dc:#9F6B53"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h2"/><path d="M18 9h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-2"/><path d="M10 6h4M10 10h4M10 14h4M10 18h4"/></svg></i>Administrativo</span><br>até dia <span class="ph">[17]</span></small></div><div><span class="num">04</span><b>Cliente</b><small><span class="dp" style="--dc:#CB912F"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></i>Sucesso do Cliente</span><br>resposta em <span class="ph">[48h]</span></small></div><div><span class="num">05</span><b>Agendamento</b><small><span class="dp" style="--dc:#CB912F"><i><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></i>Sucesso do Cliente</span><br>até dia <span class="ph">[25]</span></small></div></div></div><div class="sec"><div class="sec-h"><div class="sec-n">05</div><div><h2>Datas relevantes</h2></div></div><table class="tbl"><colgroup><col style="width:20mm"><col><col></colgroup><thead><tr><th>Data</th><th>Ocasião</th><th>Uso no calendário</th></tr></thead><tbody><tr><td class="k"><span class="ph">[dd/mm]</span></td><td><span class="ph">[Data comemorativa do setor]</span></td><td><span class="ph">[Substitui o post do dia ou entra extra]</span></td></tr><tr><td class="k"><span class="ph">[dd/mm]</span></td><td><span class="ph">[Evento do cliente]</span></td><td><span class="ph">[Cobertura em stories]</span></td></tr><tr><td class="k"><span class="ph">[dd/mm]</span></td><td><span class="ph">[Feriado]</span></td><td><span class="ph">[Sem publicação]</span></td></tr></tbody></table></div><div class="note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg><div><b>Regra de mudança:</b> post aprovado só muda de data com aviso do Sucesso do Cliente ao time e ao cliente.</div></div></div></div>
+</section><section class="pg">
+<div class="idb"><span class="l">Calendário Editorial · <span class="ph">[Cliente]</span></span><span class="r"><b>Pág. 04 / 04</b></span></div>
+<div class="body"><div class="fill"><div class="sec"><div class="sec-h"><div class="sec-n">06</div><div><h2>Grade de posts</h2><div class="sec-s">A cor da linha é a mesma do formato no calendário. Copy completa fica no Notion/Drive.</div></div></div><table class="tbl g"><colgroup><col style="width:7mm"><col style="width:16mm"><col style="width:9mm"><col style="width:19mm"><col style="width:26mm"><col><col style="width:21mm"><col style="width:14mm"></colgroup><thead><tr><th>#</th><th>Data</th><th>Dia</th><th>Formato</th><th>Pilar</th><th>Tema / título</th><th>Redes</th><th>Status</th></tr></thead><tbody><tr class="r-car"><td class="k">01</td><td>01/<span class="ph">[mm]</span></td><td>Seg</td><td><span class="fmt f-car">Carrossel</span></td><td>Quebra de crença</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-sto"><td class="k">02</td><td>02/<span class="ph">[mm]</span></td><td>Ter</td><td><span class="fmt f-sto">Stories</span></td><td>Relacionamento</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-vid"><td class="k">03</td><td>03/<span class="ph">[mm]</span></td><td>Qua</td><td><span class="fmt f-vid">Reels</span></td><td>Bastidor</td><td><span class="ph">[Tema do post]</span></td><td>IG · TT · YT</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">04</td><td>05/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-car">Carrossel</span></td><td>Educação</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-txt"><td class="k">05</td><td>05/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-txt">Texto</span></td><td>Autoridade</td><td><span class="ph">[Tema do post]</span></td><td>LI</td><td><span class="st">Pauta</span></td></tr><tr class="r-sta"><td class="k">06</td><td>06/<span class="ph">[mm]</span></td><td>Sáb</td><td><span class="fmt f-sta">Estático</span></td><td>Diagnóstico</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB · GMN</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">07</td><td>08/<span class="ph">[mm]</span></td><td>Seg</td><td><span class="fmt f-car">Carrossel</span></td><td>Quebra de crença</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-vid"><td class="k">08</td><td>09/<span class="ph">[mm]</span></td><td>Ter</td><td><span class="fmt f-vid">Reels</span></td><td>Bastidor</td><td><span class="ph">[Tema do post]</span></td><td>IG · TT · YT</td><td><span class="st">Pauta</span></td></tr><tr class="r-lng"><td class="k">09</td><td>10/<span class="ph">[mm]</span></td><td>Qua</td><td><span class="fmt f-lng">Vídeo</span></td><td>Educação</td><td><span class="ph">[Tema do post]</span></td><td>YT · LI</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">10</td><td>11/<span class="ph">[mm]</span></td><td>Qui</td><td><span class="fmt f-car">Carrossel</span></td><td>Educação</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-sto"><td class="k">11</td><td>11/<span class="ph">[mm]</span></td><td>Qui</td><td><span class="fmt f-sto">Stories</span></td><td>Relacionamento</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-sta"><td class="k">12</td><td>12/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-sta">Estático</span></td><td>Diagnóstico</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB · GMN</td><td><span class="st">Pauta</span></td></tr><tr class="r-txt"><td class="k">13</td><td>12/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-txt">Texto</span></td><td>Autoridade</td><td><span class="ph">[Tema do post]</span></td><td>LI</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">14</td><td>16/<span class="ph">[mm]</span></td><td>Ter</td><td><span class="fmt f-car">Carrossel</span></td><td>Quebra de crença</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-sto"><td class="k">15</td><td>16/<span class="ph">[mm]</span></td><td>Ter</td><td><span class="fmt f-sto">Stories</span></td><td>Relacionamento</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-vid"><td class="k">16</td><td>18/<span class="ph">[mm]</span></td><td>Qui</td><td><span class="fmt f-vid">Reels</span></td><td>Bastidor</td><td><span class="ph">[Tema do post]</span></td><td>IG · TT · YT</td><td><span class="st">Pauta</span></td></tr><tr class="r-txt"><td class="k">17</td><td>19/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-txt">Texto</span></td><td>Autoridade</td><td><span class="ph">[Tema do post]</span></td><td>LI</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">18</td><td>20/<span class="ph">[mm]</span></td><td>Sáb</td><td><span class="fmt f-car">Carrossel</span></td><td>Educação</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-sta"><td class="k">19</td><td>21/<span class="ph">[mm]</span></td><td>Dom</td><td><span class="fmt f-sta">Estático</span></td><td>Diagnóstico</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB · GMN</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">20</td><td>22/<span class="ph">[mm]</span></td><td>Seg</td><td><span class="fmt f-car">Carrossel</span></td><td>Quebra de crença</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-sto"><td class="k">21</td><td>23/<span class="ph">[mm]</span></td><td>Ter</td><td><span class="fmt f-sto">Stories</span></td><td>Relacionamento</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-vid"><td class="k">22</td><td>24/<span class="ph">[mm]</span></td><td>Qua</td><td><span class="fmt f-vid">Reels</span></td><td>Bastidor</td><td><span class="ph">[Tema do post]</span></td><td>IG · TT · YT</td><td><span class="st">Pauta</span></td></tr><tr class="r-car"><td class="k">23</td><td>26/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-car">Carrossel</span></td><td>Educação</td><td><span class="ph">[Tema do post]</span></td><td>IG · LI · FB</td><td><span class="st">Pauta</span></td></tr><tr class="r-txt"><td class="k">24</td><td>26/<span class="ph">[mm]</span></td><td>Sex</td><td><span class="fmt f-txt">Texto</span></td><td>Autoridade</td><td><span class="ph">[Tema do post]</span></td><td>LI</td><td><span class="st">Pauta</span></td></tr><tr class="r-sta"><td class="k">25</td><td>27/<span class="ph">[mm]</span></td><td>Sáb</td><td><span class="fmt f-sta">Estático</span></td><td>Diagnóstico</td><td><span class="ph">[Tema do post]</span></td><td>IG · FB · GMN</td><td><span class="st">Pauta</span></td></tr></tbody></table></div></div></div>
+</section>
+</body></html>
