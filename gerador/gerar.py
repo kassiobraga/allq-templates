@@ -1,3 +1,4 @@
+import os
 from base import *
 
 B = ('<i></i>', 'bar')
@@ -354,5 +355,8 @@ def lp():
 
 
 if __name__ == '__main__':
+    import base
+    if base.CSS_URL:
+        base.write_css(os.path.join(os.path.dirname(__file__), '..', 'assets', 'allq-templates.css'))
     for f in (semestral, mensal, calendario, calendario_tri, arte, anuncios, pago, organico, lp):
         print(f())

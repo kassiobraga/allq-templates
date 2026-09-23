@@ -37,7 +37,7 @@ jobs:
       - name: Gerar templates
         run: |
           python gerador/gerar.py
-          ALLQ_TIMB_URL=https://allq.com.br/id-visual/design/timbrado-a4-cabecalho.svg ALLQ_OUT=gem python gerador/gerar.py
+          ALLQ_TIMB_URL=https://allq.com.br/id-visual/design/timbrado-a4-cabecalho.svg ALLQ_CSS_URL=https://allq.com.br/id-visual/design/allq-templates.css ALLQ_OUT=gem python gerador/gerar.py
 
       - name: Validar (bloqueia a sincronização se falhar)
         run: python gerador/validar.py
@@ -51,7 +51,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add templates gem pdf
+          git add templates gem pdf assets
           git diff --cached --quiet || git commit -m "Regerar templates e PDFs [${GITHUB_SHA::7}]"
           git push
 

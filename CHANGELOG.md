@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.3.0 · 23/09/2026
+
+- Templates do Gem sem CSS embutido: o visual vem de `allq-templates.css`, publicado em allq.com.br/id-visual/design/. O Gem só copia uma linha do `<head>` e escreve o `<body>` com as classes oficiais. Arquivos caíram pela metade.
+- Aviso no `<head>` de cada template do Gem proibindo `<style>` próprio.
+- `assets/allq-templates.css` gerado a cada push. Sempre que mudar, subir no site junto com o timbrado.
+- Instruções do Gem com checklist obrigatório e template anexado na conversa.
+
 ## v1.2.0 · 23/09/2026
 
 - Pasta `gem/`: versão dos templates para o Gem, com o timbrado por link (allq.com.br) em vez de embutido. O Gem passa a devolver o documento completo em HTML.

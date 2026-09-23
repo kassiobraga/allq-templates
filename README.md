@@ -29,7 +29,7 @@ Para rodar sem push: aba Actions > Sincronizar com o Google Drive > Run workflow
 | `templates/` | HTML de trabalho. Abrir no Chrome, preencher, Ctrl+P, Salvar como PDF com "Gráficos de segundo plano" marcado |
 | `gem/` | Mesmos templates com o timbrado por link, mais leves, para o Gem copiar e preencher. É o que vai para o Drive |
 | `pdf/` | Prévia em PDF de cada template |
-| `assets/` | Timbrado leve, publicado em allq.com.br/id-visual/design/timbrado-a4-cabecalho.svg |
+| `assets/` | Timbrado e `allq-templates.css`, publicados em allq.com.br/id-visual/design/. Quando o CSS mudar, subir de novo no site |
 | `gerador/` | Código que gera os HTML. Editar aqui, nunca direto no HTML |
 | `GUIA-GEMINI.md` | Guia de uso para os Gems e para o time, publicado no Drive como PDF |
 | `.github/workflows/` | Sincronização automática com o Drive |

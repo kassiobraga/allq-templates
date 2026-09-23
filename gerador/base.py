@@ -5,6 +5,9 @@ SCR = os.path.join(HERE, 'timbrado.svg')
 # ALLQ_TIMB_URL: versão para o Gem, com o timbrado por link em vez de embutido
 TIMB = os.environ.get('ALLQ_TIMB_URL') or ('data:image/svg+xml;base64,' + base64.b64encode(open(SCR, 'rb').read()).decode())
 OUTDIR = os.environ.get('ALLQ_OUT', 'templates')
+# ALLQ_CSS_URL: versão para o Gem, com o CSS num arquivo hospedado em vez de embutido.
+# O Gem só precisa copiar uma linha do <head> e escrever o <body> com as classes oficiais.
+CSS_URL = os.environ.get('ALLQ_CSS_URL')
 
 FONTS = 'https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Albert+Sans:wght@400;500;600&display=swap'
 
@@ -216,17 +219,33 @@ def page(label, n, total, inner, sub=''):
 </section>'''
 
 
+GEM_NOTE = '''<!-- MODELO OFICIAL ALL.Q · não altere o <head>. Copie a linha do CSS exatamente como está.
+Escreva só dentro de <body>, usando apenas as classes deste arquivo. Não crie <style>. -->
+'''
+
+
 def doc(title, pages):
+    if CSS_URL:
+        HEADCSS = f'<link href="{CSS_URL}" rel="stylesheet">'
+        note = GEM_NOTE
+    else:
+        HEADCSS = f'<style>{CSS}{CSS2}</style>'
+        note = ''
     return f'''<!DOCTYPE html>
-<html lang="pt-BR"><head><meta charset="utf-8">
+<html lang="pt-BR"><head>{note}<meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>{title}</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="{FONTS}" rel="stylesheet">
-<style>{CSS}{CSS2}</style></head>
+{HEADCSS}</head>
 <body>
 {"".join(pages)}
 </body></html>'''
+
+
+def write_css(path):
+    """CSS único dos templates, publicado em allq.com.br para a versão do Gem."""
+    open(path, 'w').write('/* All.Q · Templates de Planejamento · gerado por gerador/base.py, não editar */\n' + CSS + CSS2)
 
 
 def build(fname, title, cov, inner_pages, label):
